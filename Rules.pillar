@@ -1,0 +1,22 @@
+!! Notes
+
+
+!!! Chainers
+
+There are two main kind of process to reason about rules: forward and backward chaining. 
+Both manipulate rules composed of premisses and conclusion, where a conclusion can be drawn when the premisses are true.
+This is modus ponens logic.
+
+Examples of rule are 
+
+- If a polygon has 3 edges Then it is triangle.
+- If it nurse its young with milk Then it is a mammal.
+
+!!! A forward chainer is data-driven.
+It starts from the facts and the inference engine tests whether each rules can be applied. When a rule fires, rule conclusion is added as new fact the fact basis.
+
+
+!!! Backward chainer: goal-driven 
+The engine starts from the facts that we want to check, and we check a rule that would work. To prove a rule conclusion, we should prove the rules premisses. So we restart the process until all the premises are found (as existing facts).
+
+ 
