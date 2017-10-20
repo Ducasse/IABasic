@@ -12,11 +12,51 @@ Examples of rule are
 - If a polygon has 3 edges Then it is triangle.
 - If it nurse its young with milk Then it is a mammal.
 
-!!! A forward chainer is data-driven.
-It starts from the facts and the inference engine tests whether each rules can be applied. When a rule fires, rule conclusion is added as new fact the fact basis.
+!!!! A forward chainer is data-driven.
+It starts from the facts and the inference engine tests whether each rules can be applied. When a rule fires, rule conclusion is added as new fact the fact basis. More facts are generated that way.
 
 
-!!! Backward chainer: goal-driven 
+!!!! Backward chainer: goal-driven 
 The engine starts from the facts that we want to check, and we check a rule that would work. To prove a rule conclusion, we should prove the rules premisses. So we restart the process until all the premises are found (as existing facts).
 
- 
+
+
+!!! Example: Quadrilatere
+
+If polygone edges = 4
+Then quadrilatere
+
+If quadrilatere AND parallel side by side 
+Then parallelogram
+
+If parallelogram AND edge same length
+Then losange
+
+If parallelogram AND 90 angle
+Then rectangle
+
+If losange AND 90 angle
+Then square 
+
+
+!!! Forward chainer
+
+
+[[[
+forward(orirules, rules, facts) =
+	if rules is empty then facts
+	else
+		r = first(rules)
+		if not canfire(r)
+		then forward (orirules, other(rules), facts)
+		else
+			newfacts = conclusion (r)
+			newfacts is empty
+			then forward (orirules, other(rules), facts)
+			else forward (orirules, orirules, (newfact, facts))
+]]]
+
+Given a list of rules, the forward chainer attempts to draw all possible conclusions. Its starts from the rules that are given. If there is no rules to consider it returns the facts (which includes the facts given) and terminates. 
+If there are more rules, it takes the first one. If the first one cannot fire, it recurses with the other ones. 
+When a rule fires, the new concluding facts are examined. If the facts are empty, the forwarder recurses on the 
+other rules. Now if a new fact is added to the facts list, then it should restarts scanning all the rules from the database. Indeed one of the not firing rules may be in position to fire.
